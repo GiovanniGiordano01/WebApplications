@@ -1,14 +1,7 @@
 // LAB01
 import dayjs from "dayjs";
+import sqlite from 'sqlite3'
 "use strict";
-function computeString(x){
-    for(let i=0;i<x.length;i++){
-        console.log(x[i].slice(0,2) + x[i].slice(-2));
-     }
-}
-
-const stringhe=["giovanni","saaaaaaaas","va"];
-computeString(stringhe);
 function Film(id,title,favorite,date,rating,person_id){
     this.id=id;
     this.title=title;
@@ -56,11 +49,42 @@ const f1 = new filmLibrary();
 const F1 = new Film(++id,"2001 Odissea nello spazio", true, dayjs('2024-03-12'),5,0);
 //const F2 = new Film(++id,"Interstellar",true,dayjs(null),5,0);
 const F3 = new Film(++id,"Oppenheimer ", false, dayjs('2023-08-09'),4,0);
-f1.add(F1);
+/*f1.add(F1);
 //f1.add(F2);
 f1.add(F3);
 console.log("prima del sort: ");
 f1.printAll();
 console.log("dopo il sort: ");
 f1.sortByDate();
-f1.printAll();
+f1.printAll();*/
+//INTERAZIONE CON IL DATABASE
+
+const db= new sqlite.Database('./films.db', (err) =>{if(err) throw err});
+db.all("SELECT * FROM films", (err,rows) =>{
+    if(err)
+        throw err;
+    console.log(rows);
+    });
+
+db.all("SELECT * FROM users", (err,rows) =>{
+    if(err)
+        throw err;
+    console.log(rows);
+    });
+const filmID=5;
+db.get("SELECT * FROM films WHERE id=?",[filmID], (err,row) => {
+    if(err)
+    throw err;
+console.log(row);
+});
+
+//db.close() be careful, db interaction is asynchronous!
+const prova= new Promise((resolve,reject) =>{
+    db.all("select * from films", (err,rows) =>{
+        if(err)
+            reject(err);
+        else    
+            resolve(rows);
+    })
+
+})
