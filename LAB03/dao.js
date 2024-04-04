@@ -52,16 +52,6 @@ export function  filmLibrary(){
             this.Films[i].resetDate();
     }
     }
-    this.deleteFilm=(id) =>{
-        return new Promise((resolve,reject) =>{
-            db.run('DELETE FROM films WHERE id=?',[id],(err) =>{
-                if(err)
-                    reject("error when deleting the film, maybe ID doesn't exist!");
-                else
-                    resolve("delete operation was successful!");
-            })
-        })
-    }
     this.deleteWatchDate=()=>{
         return new Promise((resolve,reject) =>{
             db.run('UPDATE films SET watchDate=NULL',(err) =>{
@@ -102,6 +92,17 @@ export function addFilm(movie){
 
 }
 
+export function DeleteFilm(id){
+    return new Promise((resolve,reject) =>{
+        db.run('DELETE FROM films WHERE id=?',[id],(err) =>{
+            if(err)
+                reject("error when deleting the film, maybe ID doesn't exist!");
+            else
+                resolve("delete operation was successful!");
+        })
+    })
+
+}
 export function updateFilm(id,movie){
     return new Promise((resolve,reject) =>{
         db.run('UPDATE films SET title=?,isFavorite=?,rating=?,watchDate=?,userID=? WHERE id=?',[movie.title,movie.isFavorite,movie.rating,movie.date,movie.UserId,id], (err) =>{
@@ -109,6 +110,30 @@ export function updateFilm(id,movie){
                 reject(err);
             else
                 resolve("modifica del film avvenuta con successo!");
+        })
+    
+    })
+}
+export function setFilmAsfavorite(id){
+    return new Promise((resolve,reject) =>{
+        db.run('UPDATE films SET isFavorite=1 WHERE id=?',[id], (err) =>{
+            if(err)
+                reject(err);
+            else
+                resolve("film aggiunto ai preferiti!");
+        })
+    
+    })
+
+}
+
+export function updateFilmRating(id,ogg){
+    return new Promise((resolve,reject) =>{
+        db.run('UPDATE films SET rating=? WHERE id=?',[ogg.rating,id], (err) =>{
+            if(err)
+                reject(err);
+            else
+                resolve("film rating updated correctly!");
         })
     
     })

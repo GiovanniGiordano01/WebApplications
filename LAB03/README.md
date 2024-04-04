@@ -188,7 +188,7 @@ Response body: none
 
 HTTP Method: PUT
 
-URL: /api/films/<id>
+URL: /api/films/ratings/<id>
 
 Description:  update an the rating of an already existing film with id=<id>
 
@@ -205,15 +205,11 @@ Response body: none
 
 HTTP Method: PUT
 
-URL: /api/films/<id>
+URL: /api/films/favorites/<id>
 
 Description:  mark an existing film with id=<id> as favorite
 
-Request body:
-
-    {
-        "isFavorite":1,
-    }
+Request body: none
 
 Response: 200 OK (success) or 503  service unavailable (error) or 422 unprocessable entity (validation error) or 404 not found (wrong id)
 

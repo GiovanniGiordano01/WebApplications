@@ -1,7 +1,7 @@
 //import
 import express from 'express'
 import morgan from 'morgan'
-import {retrieveFilms,retrieveFavoriteFilms,retrieveFilmAboveRating,retrieveUnwatchedFilms,retrieveFilm,addFilm,updateFilm} from './dao.js'
+import {retrieveFilms,retrieveFavoriteFilms,retrieveFilmAboveRating,retrieveUnwatchedFilms,retrieveFilm,addFilm,updateFilm,DeleteFilm,setFilmAsfavorite,updateFilmRating} from './dao.js'
 
 //init
 const app=express();
@@ -48,6 +48,18 @@ app.post('/films', (req,res) => {
 app.put('/films/:id', (req,res) =>{
     updateFilm(req.params.id,req.body).catch((err) =>{console.log("errore nell'interazione con il DB!", err)});
 })
+
+app.delete('/films/:id', (req,res) =>{
+    DeleteFilm(req.params.id).catch((err) =>{console.log("errore nell'interazione con il DB!", err)});
+})
+app.put('/films/favorites/:id', (req,res) =>{
+    setFilmAsfavorite(req.params.id).catch((err) =>{console.log("errore nell'interazione con il DB!", err)});
+})
+app.put('/films/ratings/:id', (req,res) =>{
+    updateFilmRating(req.params.id,req.body).catch((err) =>{console.log("errore nell'interazione con il DB!", err)});
+})
+
+
 
 
 //start the server
