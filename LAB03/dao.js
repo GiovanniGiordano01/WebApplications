@@ -88,11 +88,12 @@ export function retrieveFilms(){
     
     })
 }
-export function addFilm(id,title,isFavorite,rating,watchDate,userId){
+let currentID=7;
+export function addFilm(movie){
     return new Promise((resolve,reject) =>{
-        db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,UserId) VALUES(?,?,?,?,?,?)',[id,title,favorite,rating,date.format('YYYY-MM-DD'),person_id], (err) =>{
+        db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,UserId) VALUES(?,?,?,?,DATE(?),?)',[currentID,movie.title,movie.isFavorite,movie.rating,movie.date,movie.UserId], (err) =>{
             if(err)
-                reject("errore nell'interazione con il database!");
+                reject(err);
             else
                 resolve("Aggiunta del film avvenuta con successo!");
         })

@@ -8,7 +8,7 @@ const app=express();
 const port=3000;
 
 //middleware
-//app.use(json());
+app.use(express.json());
 app.use(morgan('dev'));
 
 //API implementations
@@ -36,10 +36,14 @@ app.get('/films/unseen', (req,res) => {
     })
 })
 
-app.post('/films', (req,res) => {  
-       retrieveFilm(req.params.id).then(rows =>{
+app.get('/films/:id', (req,res) => {
+    retrieveFilm(req.params.id).then(rows =>{
         res.json(rows);
-       })
+    })
+})
+
+app.post('/films', (req,res) => { 
+       addFilm(req.body).catch((err) =>{console.log("errore nell'interazione con il DB!", err)});
 })
 
 

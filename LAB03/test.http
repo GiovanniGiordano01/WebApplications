@@ -1,10 +1,10 @@
-POST http://localhost:3000/questions/films
+POST http://localhost:3000/films
 content-type: application/json
 
 {
-  "title": "Kung fu panda 4",
-  "isFavorite": 0,
-  "rating": 3,
+  "title": "Fight Club",
+  "isFavorite": 1,
+  "rating": 5,
   "watchDate": "2024-04-01",
   "UserId": 1
 }
