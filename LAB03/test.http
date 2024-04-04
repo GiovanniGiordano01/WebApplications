@@ -1,0 +1,10 @@
+POST http://localhost:3000/questions/films
+content-type: application/json
+
+{
+  "title": "Kung fu panda 4",
+  "isFavorite": 0,
+  "rating": 3,
+  "watchDate": "2024-04-01",
+  "UserId": 1
+}

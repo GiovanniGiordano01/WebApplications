@@ -19,9 +19,16 @@ function Film(id,title,favorite,date,rating,person_id){
     this.getID= () => {return this.id}
     this.resetDate= () => {this.date=null}
 }
-function  filmLibrary(){
+export function  filmLibrary(){
     this.Films= [];
     this.add = (movie) => {this.Films.push(movie)}
+    this.getFilm=(id) =>{
+        for(let i=0;i>this.Films.length;i++){
+            if(this.Films[i].id==id){
+                return this.Films[i];
+            }
+        }
+    }
     this.printAll= () => {
         for(let i=0; i<this.Films.length;i++){
             this.Films[i].toString_();
@@ -45,17 +52,6 @@ function  filmLibrary(){
             this.Films[i].resetDate();
     }
     }
-    this.StoreFilm=(f)=>{
-        return new Promise((resolve,reject) =>{
-            db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,UserId) VALUES(?,?,?,?,?,?)',[f.id,f.title,f.favorite,f.rating,f.date.format('YYYY-MM-DD'),f.person_id], (err) =>{
-                if(err)
-                    reject("errore nell'interazione con il database!");
-                else
-                    resolve("Aggiunta del film avvenuta con successo!");
-            })
-        
-        })     
-    }
     this.deleteFilm=(id) =>{
         return new Promise((resolve,reject) =>{
             db.run('DELETE FROM films WHERE id=?',[id],(err) =>{
@@ -78,42 +74,10 @@ function  filmLibrary(){
     }
 }
 
-let id=0;
-const f1 = new filmLibrary();
-const F1 = new Film(6,"2001 Odissea nello spazio", 1, dayjs('2024-03-12'),5,0);
-const F2 = new Film(7,"Interstellar",1,dayjs(null),5,0);
-const F3 = new Film(8,"Oppenheimer ", 2, dayjs('2023-08-09'),4,0);
-/*f1.add(F1);
-//f1.add(F2);
-f1.add(F3);
-console.log("prima del sort: ");
-f1.printAll();
-console.log("dopo il sort: ");
-f1.sortByDate();
-f1.printAll();*/
 //INTERAZIONE CON IL DATABASE
 
-/*db.all("SELECT * FROM films", (err,rows) =>{
-    if(err)
-        throw err;
-    console.log(rows);
-    });
-
-db.all("SELECT * FROM users", (err,rows) =>{
-    if(err)
-        throw err;
-    console.log(rows);
-    });
-const filmID=5;
-db.get("SELECT * FROM films WHERE id=?",[filmID], (err,row) => {
-    if(err)
-        throw err;
-    else
-        console.log(row);
-});*/
-
 //db.close() be careful, db interaction is asynchronous!
-function retrieveFilms(){
+export function retrieveFilms(){
     return new Promise((resolve,reject) =>{
         db.all("select * from films", (err,rows) =>{
             if(err)
@@ -124,8 +88,32 @@ function retrieveFilms(){
     
     })
 }
+export function addFilm(id,title,isFavorite,rating,watchDate,userId){
+    return new Promise((resolve,reject) =>{
+        db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,UserId) VALUES(?,?,?,?,?,?)',[id,title,favorite,rating,date.format('YYYY-MM-DD'),person_id], (err) =>{
+            if(err)
+                reject("errore nell'interazione con il database!");
+            else
+                resolve("Aggiunta del film avvenuta con successo!");
+        })
+    
+    })  
 
-function retrieveFavoriteFilms(){
+}
+
+export function retrieveFilm(id){
+    return new Promise((resolve,reject) =>{
+        db.all("select * from films where id=?",[id], (err,rows) =>{
+            if(err)
+                reject(err);
+            else                   
+                resolve(rows);
+        })
+    
+    })
+}
+
+export function retrieveFavoriteFilms(){
     return new Promise((resolve,reject) =>{
         db.all("select * from films where isFavorite=1", (err,rows) =>{
             if(err)
@@ -160,9 +148,21 @@ function retrieveFilmAtDate(date){
     })
 }
 
-function retrieveFilmAboveRating(rating){
+export function retrieveFilmAboveRating(rating){
     return new Promise((resolve,reject) =>{
         db.all("select * from films where rating>=?",[rating], (err,rows) =>{
+            if(err)
+                reject(err);
+            else                   
+                resolve(rows);
+        })
+    
+    })
+}
+
+export function retrieveUnwatchedFilms(){
+    return new Promise((resolve,reject) =>{
+        db.all("select * from films where WatchDate IS NULL", (err,rows) =>{
             if(err)
                 reject(err);
             else                   
@@ -184,7 +184,7 @@ function retrieveFilmContainingString(string){
     })
 }
 
-retrieveFilms().then((rows) =>{
+/*retrieveFilms().then((rows) =>{
     console.log("films");
     console.log(rows);
 });
@@ -203,7 +203,8 @@ retrieveFilmAtDate(dayjs('2024-03-10')).then((rows)=>{
 retrieveFilmAboveRating(4).then((rows)=>{
     console.log("above rating");
     console.log(rows);
-})
+})*/
+
 //DATABASE INTERACTION
 //f1.StoreFilm(F2).then((msg)=> {console.log(msg)}).catch((msg)=> {console.log(msg)});
 //f1.deleteFilm(7).then((msg)=> {console.log(msg)}).catch((msg) => {console.log(msg)});
