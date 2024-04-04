@@ -8,3 +8,14 @@ content-type: application/json
   "watchDate": "2024-04-01",
   "UserId": 1
 }
+
+PUT http://localhost:3000/films/1
+content-type: application/json
+
+{
+  "title": "fizione pulp!",
+  "isFavorite": 1,
+  "rating": 5,
+  "watchDate": "2024-03-10",
+  "UserId": 1
+}

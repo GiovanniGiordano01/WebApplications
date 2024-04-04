@@ -91,7 +91,7 @@ export function retrieveFilms(){
 let currentID=7;
 export function addFilm(movie){
     return new Promise((resolve,reject) =>{
-        db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,UserId) VALUES(?,?,?,?,DATE(?),?)',[currentID,movie.title,movie.isFavorite,movie.rating,movie.date,movie.UserId], (err) =>{
+        db.run('INSERT INTO films(id,title,isFavorite,rating,watchDate,userId) VALUES(?,?,?,?,DATE(?),?)',[currentID,movie.title,movie.isFavorite,movie.rating,movie.date,movie.UserId], (err) =>{
             if(err)
                 reject(err);
             else
@@ -100,6 +100,18 @@ export function addFilm(movie){
     
     })  
 
+}
+
+export function updateFilm(id,movie){
+    return new Promise((resolve,reject) =>{
+        db.run('UPDATE films SET title=?,isFavorite=?,rating=?,watchDate=?,userID=? WHERE id=?',[movie.title,movie.isFavorite,movie.rating,movie.date,movie.UserId,id], (err) =>{
+            if(err)
+                reject(err);
+            else
+                resolve("modifica del film avvenuta con successo!");
+        })
+    
+    })
 }
 
 export function retrieveFilm(id){
