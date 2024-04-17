@@ -5,9 +5,15 @@ content-type: application/json
   "rating": "1"
 }
 
+###  
+
 PUT http://localhost:3000/films/favorites/3
 
+###
+
 DELETE http://localhost:3000/films/1
+
+###
 
 POST http://localhost:3000/films
 content-type: application/json
@@ -19,6 +25,8 @@ content-type: application/json
   "watchDate": "2024-04-01",
   "UserId": 1
 }
+
+###
 
 PUT http://localhost:3000/films/1
 content-type: application/json
