@@ -9,6 +9,7 @@
     
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="custom.css">
+        <script defer src="app.js"></script>
     
         <title>FilmLibrary</title>
       </head>
@@ -26,91 +27,22 @@
       <main class="row fill" >
         <aside class="col-lg-3 aside">
             <ul class="list-group list-group-flush " style="color:lightgray">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    All
-                  </a>
-                  <a href="#" class="list-group-item list-group-item-light">Favorites</a>
-                  <a href="#" class="list-group-item list-group-item-action">Best rated</a>
-                  <a href="#" class="list-group-item list-group-item-action">Seen Last Month</a>
-                  <a href="#" class="list-group-item list-group-item-action">Unseen</a>
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true" id="AllLink"> All</a>
+                  <a href="#" class="list-group-item list-group-item-action" id="FavoriteLink">Favorites</a>
+                  <a href="#" class="list-group-item list-group-item-action" id="BestLink">Best rated</a>
+                  <a href="#" class="list-group-item list-group-item-action" id="SeenlastLink">Seen Last Month</a>
+                  <a href="#" class="list-group-item list-group-item-action" id="UnseenLink">Unseen</a>
               </ul>
           </aside>
           <main class="col-lg-9 container-fluid mt-3">
-            <div class="row">
+            <div class="row" id="title">
                 <h2 class="col">All</h2>
             </div>
             <div class="row">
                 <div class="col-10 mx-auto">
                   <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>Pulp Fiction</td>
-                        <td>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" checked>
-                            <label for="vehicle1"> Favorites</label><br>                       
-                        </td>
-                        <td>March 10, 2023</td>
-                        <td>
-                           <p>⭐⭐⭐⭐⭐</p>
-                        </td>
-                        <td>
-                          <button class="btn btn-primary"><i class='bi bi-pencil-square'>✏️</i></button>
-                          <button type="button" class="btn btn-danger">🗑️</button>
-                        </td>
-                    
-                      </tr>
-                      <tr>
-                        <td>21 grams </td>
-                        <td>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" checked>
-                            <label for="vehicle1"> Favorites</label><br>                       
-                        </td>
-                        <td>March 17, 2023</td>
-                        <td>⭐⭐⭐⭐</td>
-                        <td>
-                            <button class="btn btn-primary"><i class='bi bi-pencil-square'>✏️</i></button>
-                            <button type="button" class="btn btn-danger">🗑️</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Star Wars</td>
-                        <td>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                            <label for="vehicle1"> Favorites</label><br>                       
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button class="btn btn-primary"><i class='bi bi-pencil-square'>✏️</i></button>
-                            <button type="button" class="btn btn-danger">🗑️</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Matrix </td>
-                        <td>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                            <label for="vehicle1"> Favorites</label><br>                       
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button class="btn btn-primary"><i class='bi bi-pencil-square'>✏️</i></button>
-                            <button type="button" class="btn btn-danger">🗑️</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Shrek </td>
-                        <td>
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                            <label for="vehicle1"> Favorites</label><br>                       
-                        </td>
-                        <td>March 21, 2023</td>
-                        <td>⭐⭐⭐</td>
-                        <td>
-                            <button class="btn btn-primary"><i class='bi bi-pencil-square'>✏️</i></button>
-                            <button type="button" class="btn btn-danger">🗑️</button>
-                        </td>
-                      </tr>
+                    <tbody id="FilmTable">
+
                     </tbody>
                   </table>
                 </div>
