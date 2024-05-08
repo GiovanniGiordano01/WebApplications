@@ -51,12 +51,14 @@ const F3 = new Film(++id,"Shrek ", true, '2023-09-10',4,0);
 const F4 = new Film(++id,"Il gatto con gli stivali ", false, '2023-12-12',4,0);
 const F5 = new Film(++id,"Matrix ", true, '2002-08-09',2,0);
 const F6 = new Film(++id,"Kung Fu Panda 4 ", false, '2024-04-05',1,0);
+const F7 = new Film(++id,"Dune 2",true,'2024-03-02',5,0);
 f1.add(F1);
 f1.add(F2);
 f1.add(F3);
 f1.add(F4);
 f1.add(F5);
 f1.add(F6);
+f1.add(F7);
 
 const table= document.getElementById("FilmTable");
 const title=document.getElementById("title");
