@@ -42,14 +42,14 @@ function  filmLibrary(){
     }
     }
     this.getFilms = (choice) => {
-        if(choice=="All")
-            return [...this.Films];
-        else if (choice=="Favorite"){
-            return this.Films.filter((film)=>film.favorite==true);
-        } else if (choice=="Best Rated"){
-            return this.Films.filter((film)=>film.rating>4);
+         if (choice=="Favorite"){
+            return this.Films.filter((film)=>film.favorite);
+        } else if (choice=="Best rated"){
+            return this.Films.filter((film)=>film.rating===4);
         } else if (choice=="Unseen"){
             return this.Films.filter((film)=>film.date==null);
+        }else{
+            return [...this.Films];
         }
             
       }
