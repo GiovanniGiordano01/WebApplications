@@ -16,12 +16,11 @@ function Rating(props){
 function Favorite(props){
   if(props.fav==true){
     return (<td><input type="checkbox" id="vehicle1" name="movie" value="Bike" checked></input>
-<label for="movie"> Favorites</label></td>)
+<label htmlFor="movie"> Favorites</label></td>)
   }else{
     return (<td><input type="checkbox" id="vehicle1" name="movie" value="Bike"></input>
-<label for="movie"> Favorites </label></td>)
+<label htmlFor="movie"> Favorites </label></td>)
   }
-
 
 }
 function Action() {
@@ -52,7 +51,7 @@ function Main(props){
   
     return (
      <>
-     <h1>All</h1>
+     <h1>{props.active}</h1>
     <Table striped>
       <thead>
         <tr>

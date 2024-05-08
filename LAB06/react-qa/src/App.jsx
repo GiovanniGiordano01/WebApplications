@@ -11,17 +11,19 @@ f.init();
 
 function App() {
   const [Active,setActive]= useState("All");
+  const chooseSelected = (s) => {
+    setActive(s);
+  }
   return (
-    
     <>
     <NavHeader/>
     <Container fluid className='mt-3'>
       <Row>
         <Col md={3}>
-          <Aside />
+          <Aside choose={chooseSelected} active={Active}/>
         </Col>
         <Col md={9}>
-        <Main films={f.getFilms()}/>
+        <Main films={f.getFilms(Active)} active={Active}/>
         </Col> 
       </Row>
 

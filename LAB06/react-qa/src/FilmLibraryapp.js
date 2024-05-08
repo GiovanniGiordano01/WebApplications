@@ -41,8 +41,20 @@ function  filmLibrary(){
             this.Films[i].resetDate();
     }
     }
-    this.getFilms = () => {
-        return [...this.Films];
+    this.getFilms = (choice) => {
+        if(choice=="All")
+            return [...this.Films];
+        else if (choice=="Favorite"){
+            const FavoriteFilms= this.Films.filter((x)=>x.favorite==true);
+            return FavoriteFilms;
+        } else if (choice=="Best Rated"){
+            const FavoriteFilms= this.Films.filter((x)=>x.rating==5.0);
+            return FavoriteFilms;
+        } else if (choice=="Unseen"){
+            const FavoriteFilms= this.Films.filter((x)=>x.date==null);
+            return FavoriteFilms;
+        }
+            
       }
     
     this.init= () =>{
