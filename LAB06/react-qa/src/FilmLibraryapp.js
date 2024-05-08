@@ -45,14 +45,11 @@ function  filmLibrary(){
         if(choice=="All")
             return [...this.Films];
         else if (choice=="Favorite"){
-            const FavoriteFilms= this.Films.filter((x)=>x.favorite==true);
-            return FavoriteFilms;
+            return this.Films.filter((film)=>film.favorite==true);
         } else if (choice=="Best Rated"){
-            const FavoriteFilms= this.Films.filter((x)=>x.rating==5.0);
-            return FavoriteFilms;
+            return this.Films.filter((film)=>film.rating>4);
         } else if (choice=="Unseen"){
-            const FavoriteFilms= this.Films.filter((x)=>x.date==null);
-            return FavoriteFilms;
+            return this.Films.filter((film)=>film.date==null);
         }
             
       }
