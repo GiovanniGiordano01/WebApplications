@@ -36,7 +36,7 @@ function FilmData(props) {
             <>
               <td>{props.film.title}</td>
               <Favorite fav={props.film.favorite}/>
-              <td>{props.film.date}</td>
+              <td>{props.film.getDate()}</td>
               <Rating rating={props.film.rating}/>    
             </>
           );   
