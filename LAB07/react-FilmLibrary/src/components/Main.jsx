@@ -4,27 +4,24 @@ import React,{useState} from 'react';
 import FilmForm from "./FilmForm";
 
 function Rating(props){
-  if(props.rating<=1){
-    return (<td>⭐</td>);
-  }else if(props.rating<=2){
-    return (<td>⭐⭐</td>);
-  }else if(props.rating<=3){
-    return (<td>⭐⭐⭐</td>);
-  }else if(props.rating<=4){
-    return (<td>⭐⭐⭐⭐</td>);
-  }else{
-    return (<td>⭐⭐⭐⭐⭐</td>);
-  }
+  return(
+    <>
+    {props.rating==0 && <td>✰✰✰✰✰</td>}
+    {props.rating==1 && <td>★✰✰✰✰</td>}
+    {props.rating==2 && <td>★★✰✰✰</td>}
+    {props.rating==3 && <td>★★★✰✰</td>}
+    {props.rating==4 && <td>★★★★✰</td>}
+    {props.rating==5 && <td>★★★★★</td>}
+    </>
+  );
 }
 function Favorite(props){
-  if(props.fav==true){
-    return (<td><input type="checkbox" id="vehicle1" name="movie" value="Bike" checked></input>
-<label htmlFor="movie"> Favorites</label></td>)
-  }else{
-    return (<td><input type="checkbox" id="vehicle1" name="movie" value="Bike"></input>
-<label htmlFor="movie"> Favorites </label></td>)
-  }
-
+  return(
+    <>
+      {props.favorite===true && <td>✅</td>}
+      {props.favorite===false && <td>❌</td>}
+    </>
+  );
 }
 function Action() {
     return(
@@ -38,7 +35,7 @@ function FilmData(props) {
         return(
             <>
               <td>{props.film.title}</td>
-              <Favorite fav={props.film.favorite}/>
+              <Favorite favorite={props.film.favorite}/>
               <td>{props.film.getDate()}</td>
               <Rating rating={props.film.rating}/>    
             </>
@@ -66,11 +63,16 @@ function Main(props){
         </tr>
       </thead>
       <tbody>
-      { props.films.map((ans) => <FilmRow film={ans} key={ans.id}/>) }
+      {props.active==="All" && props.films.map((ans) => <FilmRow film={ans} key={ans.id}/>)} 
+      {props.active==="Favorite" && props.films.filter((movie) => movie.favorite).map((movie) => <FilmRow film={movie} key={movie.id}/>)}    
+      {props.active==="Best rated" && props.films.filter((movie) => movie.rating===5).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
+      {props.active==="Seen last month" && props.films.filter((movie) => movie.isSeenLastMonth()).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
+      {props.active==="Unseen" && props.films.filter((film)=>film.date==null).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
       </tbody>
     </Table>
-    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}} cancel={()=> setMode('view')} mode={mode}/>}
     {mode === 'view' && <Button variant='primary' onClick={() => {setMode('add');}}>Add</Button>}
+    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}} 
+    cancel={()=> setMode('view')} mode={mode}/>}
     </>
   );
 }

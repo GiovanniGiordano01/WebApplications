@@ -1,18 +1,7 @@
 // LAB01
 import dayjs from "dayjs";
 "use strict";
-const isSeenLastMonth = (film) => {
-    if(film.date!=null){
-                // Accessing watchDate only if defined
-                //console.log("ciaooo");
-                const diff = film.date.diff(dayjs(), 'month');
-                return diff <= 0 && diff > -1; //if difference is greater than -1, film not seen last month
-    }else{
-        return false;
-    }
 
-    
-};
 function Film(id,title,favorite,date,rating,person_id){
     this.id=id;
     this.title=title;
@@ -33,9 +22,23 @@ function Film(id,title,favorite,date,rating,person_id){
     }
     this.getID= () => {return this.id}
     this.resetDate= () => {this.date=null}
+    this.isSeenLastMonth = () => {
+        if(this.date!=null){
+                    // Accessing watchDate only if defined
+                    const diff = this.date.diff(dayjs(), 'month');
+                    return diff <= 0 && diff > -1; //if difference is greater than -1, film not seen last month
+        }else{
+            return false;
+        }  
+    };
 }
 function  filmLibrary(){
+    this.id=0;
     this.Films= [];
+    this.getID = () => {
+        this.id++;
+        return this.id
+    };
     this.add = (movie) => {this.Films.push(movie)}
     this.printAll= () => {
         for(let i=0; i<this.Films.length;i++){
@@ -60,32 +63,20 @@ function  filmLibrary(){
             this.Films[i].resetDate();
     }
     }
-    this.getFilms = (choice) => {
-         if (choice=="Favorite"){
-            return this.Films.filter((film)=>film.favorite);
-        } else if (choice=="Best rated"){
-            return this.Films.filter((film)=>film.rating===5);
-        } else if (choice=="Unseen"){
-            return this.Films.filter((film)=>film.date==null);
-        }else if(choice=="Seen last month"){
-            return this.Films.filter((film)=>isSeenLastMonth(film));
-        }else{
-            return [...this.Films];
-        }
-            
+    this.getFilms = () => {
+    return [...this.Films]; 
       }
     
     this.init= () =>{
-        let id=0;
         this.Films=[
-            new Film(++id,"2001 Odissea nello spazio", false, "2024-03-12",5,0),
-            new Film(++id,"Interstellar",true,null,5,0),
-            new Film(++id,"Shrek ", true, '2023-09-10',4,0),
-            new Film(++id,"Il gatto con gli stivali ", false, '2023-12-12',4,0),
-            new Film(++id,"Matrix ", true, '2002-08-09',2,0),
-            new Film(++id,"Kung Fu Panda 4 ", false, '2024-05-05',1,0),
-            new Film(++id,"Dune 2",true,'2024-03-02',5,0),
-            new Film(++id,"Jurassic park", false,"2019-04-22",3)
+            new Film(++(this.id),"2001 Odissea nello spazio", false, "2024-03-12",5,0),
+            new Film(++(this.id),"Interstellar",true,null,5,0),
+            new Film(++(this.id),"Shrek ", true, '2023-09-10',4,0),
+            new Film(++(this.id),"Il gatto con gli stivali ", false, '2023-12-12',4,0),
+            new Film(++(this.id),"Matrix ", true, '2002-08-09',2,0),
+            new Film(++(this.id),"Kung Fu Panda 4 ", false, '2024-05-05',1,0),
+            new Film(++(this.id),"Dune 2",true,'2024-03-02',5,0),
+            new Film(++(this.id),"Jurassic park", false,"2019-04-22",3)
         ];
     }
 }

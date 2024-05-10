@@ -17,10 +17,11 @@ function App() {
     setActive(s);
   }
 
-  const addFilm = (film) => {
+  const addFilm = (x) => {
     setFilms(oldFilms => {
-      const newId = Math.max(...oldFilms.map(ans => ans.id)) + 1;
-      const newFilm = new Film(newId, answer.text, answer.email, answer.date, 0);
+      const newId = Math.max(...oldFilms.map(movie => movie.id)) + 1;
+      const newFilm = new Film(newId, x.title, x.favorite, x.date,x.rating, 0);
+      f.add(newFilm);
       return [...oldFilms, newFilm];
     });
   }
@@ -33,7 +34,7 @@ function App() {
           <Aside choose={chooseSelected} active={Active}/>
         </Col>
         <Col md={9}>
-        <Main films={f.getFilms(Active)} active={Active} addFilm={addFilm}/>
+        <Main films={Films} active={Active} addFilm={addFilm}/>
         </Col> 
       </Row>
 
