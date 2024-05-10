@@ -8,11 +8,21 @@ import React,{useState} from 'react';
 import './App.css'
 const f = new filmLibrary();
 f.init();
+const films= f.getFilms();
 
 function App() {
   const [Active,setActive]= useState("All");
+  const [Films, setFilms] = useState(films);
   const chooseSelected = (s) => {
     setActive(s);
+  }
+
+  const addFilm = (film) => {
+    setFilms(oldFilms => {
+      const newId = Math.max(...oldFilms.map(ans => ans.id)) + 1;
+      const newFilm = new Film(newId, answer.text, answer.email, answer.date, 0);
+      return [...oldFilms, newFilm];
+    });
   }
   return (
     <>
@@ -23,7 +33,7 @@ function App() {
           <Aside choose={chooseSelected} active={Active}/>
         </Col>
         <Col md={9}>
-        <Main films={f.getFilms(Active)} active={Active}/>
+        <Main films={f.getFilms(Active)} active={Active} addFilm={addFilm}/>
         </Col> 
       </Row>
 

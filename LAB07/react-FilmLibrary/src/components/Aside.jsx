@@ -10,7 +10,6 @@ function AsideButton(props){
     }
 }
 function Aside(props){
-    //console.log(props.active);
     return (
             <>       
                 <ul className='list-group list-group-flush' >

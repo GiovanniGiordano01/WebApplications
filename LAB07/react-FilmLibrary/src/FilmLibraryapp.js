@@ -64,7 +64,7 @@ function  filmLibrary(){
          if (choice=="Favorite"){
             return this.Films.filter((film)=>film.favorite);
         } else if (choice=="Best rated"){
-            return this.Films.filter((film)=>film.rating===4);
+            return this.Films.filter((film)=>film.rating===5);
         } else if (choice=="Unseen"){
             return this.Films.filter((film)=>film.date==null);
         }else if(choice=="Seen last month"){

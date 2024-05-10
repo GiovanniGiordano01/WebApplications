@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Row, Col, Table, Button } from "react-bootstrap";
+import React,{useState} from 'react';
+import FilmForm from "./FilmForm";
+
 function Rating(props){
   if(props.rating<=1){
     return (<td>⭐</td>);
@@ -48,8 +51,8 @@ function FilmRow(props) {
   }
 
 function Main(props){
-  
-    return (
+  const [mode, setMode] = useState('view');
+  return (
      <>
      <h1>{props.active}</h1>
     <Table striped>
@@ -66,8 +69,10 @@ function Main(props){
       { props.films.map((ans) => <FilmRow film={ans} key={ans.id}/>) }
       </tbody>
     </Table>
+    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}} cancel={()=> setMode('view')} mode={mode}/>}
+    {mode === 'view' && <Button variant='primary' onClick={() => {setMode('add');}}>Add</Button>}
     </>
-    );
+  );
 }
 
 export default Main;
