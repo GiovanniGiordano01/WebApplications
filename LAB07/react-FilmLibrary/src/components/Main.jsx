@@ -23,11 +23,11 @@ function Favorite(props){
     </>
   );
 }
-function Action() {
+function Action(props) {
     return(
       <td>
-        <Button variant='primary' className='mx-1'><i className='bi bi-pencil-square'></i>✏️</Button> 
-        <Button variant='danger'><i className='bi bi-trash'></i>🗑️</Button>
+        <Button variant='primary' className='mx-1' onClick={() =>props.handleEdit(props.film)}>✏️</Button> 
+        <Button variant='danger'>🗑️</Button>
       </td>
     );
   }
@@ -43,15 +43,23 @@ function FilmData(props) {
   }
 function FilmRow(props) {
     return(
-      <tr><FilmData film={props.film}/><Action /></tr>
+      <tr><FilmData film={props.film}/><Action film={props.film} handleEdit={props.handleEdit} /></tr>
     );
   }
 
 function Main(props){
   const [mode, setMode] = useState('view');
+  const [editableFilm, setEditableFilm] = useState();
+
+  const handleEdit = (film) => {
+    console.log("ciaooo");
+    setEditableFilm(film); 
+    setMode('edit');
+  }
+
   return (
-     <>
-     <h1>{props.active}</h1>
+  <>
+    <h1>{props.active}</h1>
     <Table striped>
       <thead>
         <tr>
@@ -63,17 +71,19 @@ function Main(props){
         </tr>
       </thead>
       <tbody>
-      {props.active==="All" && props.films.map((ans) => <FilmRow film={ans} key={ans.id}/>)} 
-      {props.active==="Favorite" && props.films.filter((movie) => movie.favorite).map((movie) => <FilmRow film={movie} key={movie.id}/>)}    
-      {props.active==="Best rated" && props.films.filter((movie) => movie.rating===5).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
-      {props.active==="Seen last month" && props.films.filter((movie) => movie.isSeenLastMonth()).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
-      {props.active==="Unseen" && props.films.filter((film)=>film.date==null).map((movie) => <FilmRow film={movie} key={movie.id}/>)}
+        {props.active==="All" && props.films.map((ans) => <FilmRow film={ans} key={ans.id} handleEdit={handleEdit}/>)} 
+        {props.active==="Favorite" && props.films.filter((movie) => movie.favorite).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}    
+        {props.active==="Best rated" && props.films.filter((movie) => movie.rating===5).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
+        {props.active==="Seen last month" && props.films.filter((movie) => movie.isSeenLastMonth()).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
+        {props.active==="Unseen" && props.films.filter((film)=>film.date==null).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
       </tbody>
     </Table>
     {mode === 'view' && <Button variant='primary' onClick={() => {setMode('add');}}>Add</Button>}
-    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}} 
+    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}}   
     cancel={()=> setMode('view')} mode={mode}/>}
-    </>
+    {mode === 'edit' && <FilmForm key={editableFilm.id} film={editableFilm} updateFilm={(film) => {props.updateFilm(film); setMode('view');}}   
+    cancel={()=> setMode('view')} mode={mode} />}
+  </>
   );
 }
 

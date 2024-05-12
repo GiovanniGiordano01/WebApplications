@@ -25,6 +25,17 @@ function App() {
       return [...oldFilms, newFilm];
     });
   }
+  const updateFilm = (x) => {
+    setFilms(oldFilms => {
+      return oldFilms.map((film) => {
+        if(film.id === x.id) {
+          return new Film(x.id, x.title, x.favorite, x.date, x.rating,0);
+        }
+        else
+          return film;
+      });
+    });
+  }
   return (
     <>
     <NavHeader/>
@@ -34,7 +45,7 @@ function App() {
           <Aside choose={chooseSelected} active={Active}/>
         </Col>
         <Col md={9}>
-        <Main films={Films} active={Active} addFilm={addFilm}/>
+        <Main films={Films} active={Active} addFilm={addFilm} updateFilm={updateFilm}/>
         </Col> 
       </Row>
 

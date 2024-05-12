@@ -16,10 +16,10 @@ function FilmForm(props) {
     // TODO: aggiungere validazione
     
     if(props.mode === 'edit') {
-      // aggiornare la risposta in questione
-      //props.updateAnswer({id: props.answer.id, ...answer});
+      // aggiornare il film in questione
+      props.updateFilm({id: props.film.id, ...newFilm});
     } else {
-      // aggiungere la risposta allo stato
+      // aggiungere il nuovo film allo stato
       props.addFilm(newFilm);
     }
   }
@@ -31,7 +31,7 @@ function FilmForm(props) {
         <Form.Control type="text" required={true} minLength={2} value={title} onChange={(event) => setTitle(event.target.value)}></Form.Control>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Add movie to favorite" onChange={(event) => setFavorite((event.target.value==="on")? true : false)}/>
+        <Form.Check type="checkbox" label="Favorite" onChange={(event) => setFavorite((event.target.value==="on")? true : false)}/>
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>Enter watch date</Form.Label>
