@@ -52,7 +52,6 @@ function Main(props){
   const [editableFilm, setEditableFilm] = useState();
 
   const handleEdit = (film) => {
-    console.log("ciaooo");
     setEditableFilm(film); 
     setMode('edit');
   }
