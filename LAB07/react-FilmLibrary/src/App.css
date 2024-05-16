@@ -1,0 +1,12 @@
+/* custom star style */
+#films-list i.bi {
+    cursor: pointer;
+  }
+  
+  #films-list i.bi.bi-star-fill, #films-list i.bi.bi-star:hover {
+    color: #f0ad4e;
+  }
+  
+  #films-list i.bi.bi-star-fill:hover {
+    color: initial;
+  }
