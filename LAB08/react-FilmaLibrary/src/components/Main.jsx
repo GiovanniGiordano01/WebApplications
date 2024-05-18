@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import React,{useState} from 'react';
-import FilmForm from "./FilmForm";
+import {Link} from "react-router-dom"
 
 
 function Rating(props){
-  
   return(
     <>
     {props.rating==0 && <td>✰✰✰✰✰</td>}
@@ -28,8 +27,8 @@ function Favorite(props){
 function Action(props) {
     return(
       <td>
-        <Button variant='primary' className='mx-1' onClick={() =>props.handleEdit(props.film)}>✏️</Button> 
-        <Button variant='danger'>🗑️</Button>
+        <Link className="btn btn-primary mx-1" to="/FilmLibrary/Add">✏️</Link> 
+        <Button variant='danger' onClick={() => props.deleteFilm(props.film.id)}>🗑️</Button>
       </td>
     );
   }
@@ -45,7 +44,7 @@ function FilmData(props) {
   }
 function FilmRow(props) {
     return(
-      <tr><FilmData film={props.film}/><Action film={props.film} handleEdit={props.handleEdit} /></tr>
+      <tr><FilmData film={props.film}/><Action film={props.film} handleEdit={props.handleEdit} deleteFilm={props.deleteFilm}/></tr>
     );
   }
 
@@ -57,7 +56,6 @@ function Main(props){
     setEditableFilm(film); 
     setMode('edit');
   }
-
   return (
   <>
     <h1>{props.active}</h1>
@@ -72,18 +70,10 @@ function Main(props){
         </tr>
       </thead>
       <tbody>
-        {props.active==="All" && props.films.map((ans) => <FilmRow film={ans} key={ans.id} handleEdit={handleEdit}/>)} 
-        {props.active==="Favorite" && props.films.filter((movie) => movie.favorite).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}    
-        {props.active==="Best rated" && props.films.filter((movie) => movie.rating===5).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
-        {props.active==="Seen last month" && props.films.filter((movie) => movie.isSeenLastMonth()).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
-        {props.active==="Unseen" && props.films.filter((film)=>film.date==null).map((movie) => <FilmRow film={movie} key={movie.id} handleEdit={handleEdit}/>)}
+        {props.films.map((ans) => <FilmRow film={ans} key={ans.id} handleEdit={handleEdit} deleteFilm={props.deleteFilm}/>)} 
       </tbody>
     </Table>
-    {mode === 'view' && <Button variant='primary' onClick={() => {setMode('add');}}>Add</Button>}
-    {mode === 'add' && <FilmForm addFilm={(film) => {props.addFilm(film); setMode('view');}}   
-    cancel={()=> setMode('view')} mode={mode}/>}
-    {mode === 'edit' && <FilmForm key={editableFilm.id} film={editableFilm} updateFilm={(film) => {props.updateFilm(film); setMode('view');}}   
-    cancel={()=> setMode('view')} mode={mode} />}
+    <Link className="btn btn-primary" to="/FilmLibrary/Add">Add</Link>
   </>
   );
 }

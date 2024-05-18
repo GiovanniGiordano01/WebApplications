@@ -3,8 +3,11 @@ import { Form, Button } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import {Link, useNavigate} from "react-router-dom"
+import "./formStyle.css"
 
 function FilmForm(props) {
+  const navigate=useNavigate();
   const [title, setTitle] = useState(props.film ? props.film.title : '');
   const [favorite, setFavorite] = useState(props.film ? props.film.favorite : false);
   const [date, setDate] = useState(props.film ? props.film.date ? props.film.date.format('YYYY-MM-DD') :"null" : dayjs().format('YYYY-MM-DD'));
@@ -24,23 +27,25 @@ function FilmForm(props) {
       // aggiungere il nuovo film allo stato
       props.addFilm(newFilm);
     }
+    navigate("/FilmLibrary");
   }
 
   return(
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="formcss">
       <Form.Group className='mb-3'>
-        <Form.Label>Title</Form.Label>
-        <Form.Control type="text" placeholder={"Enter the movie title..."} required={true} minLength={2} value={title} onChange={(event) => setTitle(event.target.value)}></Form.Control>
+        <Form.Label ><b>Title</b></Form.Label>
+        <Form.Control className="custom-input" type="text" placeholder={"Enter the movie title..."} required={true} minLength={2} value={title} onChange={(event) => setTitle(event.target.value)}></Form.Control>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
+      <Form.Label><b>Check this box if the movie is your favorite</b></Form.Label>
         <Form.Check type="checkbox" label="Favorite" onChange={(event) => setFavorite((event.target.value==="on")? true : false)}/>
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Enter watch date</Form.Label>
-        <Form.Control type="date" value={date} onChange={(event) => setDate(event.target.value)}></Form.Control>
+        <Form.Label><b>Enter watch date</b></Form.Label>
+        <Form.Control className="custom-input" type="date" value={date} onChange={(event) => setDate(event.target.value)}></Form.Control>
       </Form.Group>
       <Form.Group id="films-list" className="mb-3">
-              <Form.Label>Rating: </Form.Label>
+              <Form.Label><b>Rating</b></Form.Label>
               {[1, 2, 3, 4, 5].map((value) => (
                 <i
                   key={value}
@@ -49,9 +54,9 @@ function FilmForm(props) {
                 ></i>
               ))}
       </Form.Group>
-      {props.mode==='add' && <Button variant='success' type='submit'>Add</Button>}
-      {props.mode==='edit' && <Button variant='success' type='submit'>Update</Button>}
-      <Button variant='danger' onClick={props.cancel}>Cancel</Button>
+      {props.mode==='add' && <Button variant='success' className="buttons" type='submit'>Add</Button>}
+      {props.mode==='edit' && <Button variant='success' className="buttons" type='submit'>Update</Button>}
+      <Link className="btn btn-danger" to="/FilmLibrary">Cancel</Link>
     </Form>
   );
 }

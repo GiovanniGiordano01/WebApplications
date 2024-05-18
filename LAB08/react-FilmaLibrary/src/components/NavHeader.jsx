@@ -9,7 +9,7 @@ function NavHeader (props) {
   return(
     <Navbar bg='dark' data-bs-theme='dark'>
       <Container fluid="true">
-        <Navbar.Brand>FilmLibrary</Navbar.Brand>
+        <Navbar.Brand>🍿FilmLibrary</Navbar.Brand>
       </Container>
         <Row>
           <Col xs="auto">

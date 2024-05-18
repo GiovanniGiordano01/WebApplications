@@ -1,13 +1,12 @@
-import Nav from 'react-bootstrap/Nav';
-import React,{useState} from 'react';
+import React from 'react';
+import {useNavigate} from "react-router-dom"
 
 function AsideButton(props){
-
-    if(props.Active==props.Name){
-        return (<a  href="#" className='list-group-item list-group-item-action active' onClick={() => props.choose(props.Name)}>{props.Name}</a>);
-    }else{
-        return (<a href="#" className='list-group-item list-group-item-action' onClick={() => props.choose(props.Name)}>{props.Name}</a>);
-    }
+    const navigate=useNavigate();
+    return(<>
+    {props.Active==props.Name && <a  href="#" className='list-group-item list-group-item-action active' >{props.Name}</a>}
+    {props.Active!=props.Name && <a href="#" className='list-group-item list-group-item-action' onClick={() => navigate("/FilmLibrary/" + props.Name)}>{props.Name}</a>}
+    </>);
 }
 function Aside(props){
     return (
@@ -19,10 +18,7 @@ function Aside(props){
                     <AsideButton  Name={"Seen last month"} Active={props.active} choose={props.choose}/>
                     <AsideButton  Name={"Unseen"} Active={props.active} choose={props.choose}/>
                 </ul>
-
-
             </>
-    );
+            );
 }
-
 export default Aside;
