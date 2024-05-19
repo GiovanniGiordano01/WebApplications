@@ -66,7 +66,14 @@ function  filmLibrary(){
     this.getFilms = () => {
     return [...this.Films]; 
       }
-    
+    this.getFilm = (id) => {
+        for(let i=0;i<this.Films.length;i++){
+            if(this.Films[i].getID()===id){
+                return this.films[i];
+            }
+
+    } 
+        }
     this.init= () =>{
         this.Films=[
             new Film(++(this.id),"2001 Odissea nello spazio", false, "2024-03-12",5,0),

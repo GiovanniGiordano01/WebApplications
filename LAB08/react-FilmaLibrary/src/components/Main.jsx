@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Table, Button } from "react-bootstrap";
 import React,{useState} from 'react';
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 
 function Rating(props){
@@ -25,9 +25,10 @@ function Favorite(props){
   );
 }
 function Action(props) {
+  const navigate=useNavigate();
     return(
       <td>
-        <Link className="btn btn-primary mx-1" to="/FilmLibrary/Add">✏️</Link> 
+        <Button variant="primary mx-1" onClick={() => { navigate(`edit/${props.film.id}`) }}>✏️</Button>
         <Button variant='danger' onClick={() => props.deleteFilm(props.film.id)}>🗑️</Button>
       </td>
     );

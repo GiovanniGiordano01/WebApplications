@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavHeader from "./components/NavHeader";
 import Aside from "./components/Aside";
 import Main from "./components/Main";
-import FilmForm from "./components/FilmForm"
+import {FilmForm,EditableFilmForm} from "./components/FilmForm"
 import { Film,filmLibrary } from "./FilmLibraryapp";
 import { Container, Row,Col } from 'react-bootstrap';
 import React,{useState} from 'react';
@@ -61,6 +61,7 @@ function App() {
           </Container>
         </>}/> 
         <Route path="/FilmLibrary/add" element={<FilmForm mode="add" addFilm={(film) => {addFilm(film)}}/>}/>
+        <Route path="/FilmLibrary/edit/:fid" element={<EditableFilmForm  updateFilm={(film) => {updateFilm(film)}} films={Films}/>}/>
         <Route path="/FilmLibrary/All" element={<>
           <Container fluid className='mt-3'>
             <Row>

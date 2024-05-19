@@ -3,10 +3,17 @@ import { Form, Button } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import {Link, useNavigate} from "react-router-dom"
+import {Link, useNavigate,useParams} from "react-router-dom"
 import "./formStyle.css"
 
-function FilmForm(props) {
+export function EditableFilmForm(props){
+  const params=useParams();
+  const fid=params.fid;
+  const find_film= props.films.filter(f => f.id == fid);
+  const fi=find_film[0];
+  return <FilmForm film={fi} updateFilm={props.updateFilm} mode="edit"/>
+}
+export function FilmForm(props) {
   const navigate=useNavigate();
   const [title, setTitle] = useState(props.film ? props.film.title : '');
   const [favorite, setFavorite] = useState(props.film ? props.film.favorite : false);
@@ -38,7 +45,7 @@ function FilmForm(props) {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
       <Form.Label><b>Check this box if the movie is your favorite</b></Form.Label>
-        <Form.Check type="checkbox" label="Favorite" onChange={(event) => setFavorite((event.target.value==="on")? true : false)}/>
+        <Form.Check type="checkbox" label="Favorite" defaultChecked={favorite} onChange={(event) => setFavorite((event.target.value==="on")? true : false)}/>
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label><b>Enter watch date</b></Form.Label>
@@ -60,5 +67,3 @@ function FilmForm(props) {
     </Form>
   );
 }
-
-export default FilmForm;
